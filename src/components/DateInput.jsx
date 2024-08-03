@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { format, addMonths, subMonths, isToday } from 'date-fns';
 import { MdClose, MdCalendarToday } from 'react-icons/md';
 import PropTypes from 'prop-types';
@@ -7,10 +7,25 @@ function DateInput({ value, onChange }) {
     const [selectedDate, setSelectedDate] = useState(value || null);
     const [showCalendar, setShowCalendar] = useState(false);
     const [currentMonth, setCurrentMonth] = useState(new Date());
+    const calendarRef = useRef(null);
 
     useEffect(() => {
         setSelectedDate(value);
+        setCurrentMonth(value || new Date());
     }, [value]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+                setShowCalendar(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const daysInMonth = (date) => {
         const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -20,7 +35,7 @@ function DateInput({ value, onChange }) {
     const handleDayClick = (date) => {
         setSelectedDate(date);
         setShowCalendar(false);
-        onChange(date); // Panggil onChange saat tanggal dipilih
+        onChange(date);
     };
 
     const handleMonthChange = (direction) => {
@@ -29,11 +44,11 @@ function DateInput({ value, onChange }) {
 
     const clearDate = () => {
         setSelectedDate(null);
-        onChange(null); // Panggil onChange saat tanggal dihapus
+        onChange(null);
     };
 
     return (
-        <div className="relative">
+        <div className="relative" ref={calendarRef}>
             <div className="flex items-center relative">
                 <input
                     type="text"
@@ -63,7 +78,7 @@ function DateInput({ value, onChange }) {
             </div>
 
             {showCalendar && (
-                <div className="absolute top-full left-0 mt-2 p-4 border border-gray-300 bg-white rounded-lg shadow-xl z-10">
+                <div className="absolute bottom-full left-0 mb-2 p-4 border border-gray-300 bg-white rounded-lg shadow-xl z-50">
                     <div className="flex items-center justify-between mb-4">
                         <button
                             onClick={() => handleMonthChange('prev')}

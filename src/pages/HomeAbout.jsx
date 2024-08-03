@@ -31,9 +31,7 @@ function AboutPage() {
 
     return (
         <div className='p-4'>
-            <div className='text-3xl font-bold text-green-400'>
-                About Page
-            </div>
+            
             <div className='mt-4 flex justify-end mb-4'>
                 <Link to="/add">
                     <button className='flex items-center bg-primary text-white px-4 py-2 rounded'>

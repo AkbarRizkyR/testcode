@@ -35,7 +35,7 @@ function EditUser() {
     if (!user) return <div>Loading...</div>;
 
     return (
-        <div className='p-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl'>
+        <div className='p-20 max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl'>
             <h2 className='text-2xl font-bold mb-4'>Edit User</h2>
             <div className='space-y-4'>
                 <input className='w-full px-3 py-2 border border-gray-300 rounded-md' type='text' placeholder='First Name' value={user.firstName} onChange={(e) => setUser({ ...user, firstName: e.target.value })} />

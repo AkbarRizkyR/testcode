@@ -18,9 +18,9 @@ function AddUser() {
     };
 
     return (
-        <div className='p-4 my-10 max-w-md mx-auto bg-white rounded-xl shadow-md'>
+        <div className='p-24 max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl'>
             <h2 className='text-2xl font-bold text-center mb-4'>Add New User</h2>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 gap-4'>
                 <input 
                     type='text' 
                     placeholder='First Name' 
